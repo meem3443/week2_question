@@ -22,7 +22,7 @@ class PriorityQueue:
   def _sift_up(self, index):
     while index > 0:
       parent_index = (index - 1) // 2
-      if self.heap[parent_index][0] > self.heap[index][0]:
+      if self.heap[parent_index][0] < self.heap[index][0]:  # 우선순위가 높은 것이 위로 올라오도록
         self._swap(parent_index, index)
         index = parent_index
       else:
@@ -32,19 +32,19 @@ class PriorityQueue:
     while True:
       left_child_index = 2 * index + 1
       right_child_index = 2 * index + 2
-      smallest = index
+      largest = index
 
       if left_child_index < len(self.heap) and \
-        self.heap[left_child_index][0] > self.heap[smallest][0]:
-        smallest = left_child_index
+        self.heap[left_child_index][0] < self.heap[largest][0]:  # 우선순위가 높은 것(작은 값)이 위로 올라오도록
+        largest = left_child_index
 
       if right_child_index < len(self.heap) and \
-        self.heap[right_child_index][0] > self.heap[smallest][0]:
-        smallest = right_child_index
+        self.heap[right_child_index][0] < self.heap[largest][0]:  # 같은 비교
+        largest = right_child_index
 
-      if smallest != index:
-        self._swap(index, smallest)
-        index = smallest
+      if largest != index:
+        self._swap(index, largest)
+        index = largest
       else:
         break
 
